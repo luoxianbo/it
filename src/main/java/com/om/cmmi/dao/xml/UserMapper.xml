@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tf.emergencyManagement.dao.administrativedivisioncodecopy.AdministrativeDivisionCodeCopyMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.tf.emergencyManagement.entity.po.administrativedivisioncodecopy.AdministrativeDivisionCodeCopy">
+        <id column="code" property="code" />
+        <result column="code_name" property="codeName" />
+        <result column="code_level" property="codeLevel" />
+        <result column="parent_code" property="parentCode" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        code, code_name, code_level, parent_code
+    </sql>
+
+</mapper>

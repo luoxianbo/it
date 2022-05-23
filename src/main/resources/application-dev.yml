@@ -1,0 +1,137 @@
+spring:
+  application:
+    #服务名称
+    name: emergency_management
+
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+
+  servlet:
+    multipart:
+      max-file-size: 300MB
+      max-request-size: 300MB
+  #  data:
+  #    elasticsearch:
+  #      repositories:
+  #        enabled: true
+  #      cluster-nodes: 192.168.8.14:9300 # es的连接地址及端口号
+  #数据库连接池配置
+  datasource:
+    master:
+      type: com.alibaba.druid.pool.DruidDataSource
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://192.168.1.63:3306/operational-management?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai&allowMultiQueries=true
+      username: root
+      password: root
+  #    cluster:
+  #      - key: slave1
+  #        type: com.zaxxer.hikari.HikariDataSource
+  #        driver-class-name: com.mysql.cj.jdbc.Driver
+  #        url: jdbc:mysql://mysql.tftnet.com:3306/smart_community?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai&allowMultiQueries=true
+  #        username: root
+  #        password: tftnet
+  #      - key: slave2
+  #        type: com.zaxxer.hikari.HikariDataSource
+  #        driver-class-name: com.mysql.cj.jdbc.Driver
+  #        url: jdbc:mysql://mysql.tftnet.com:3306/smart_community?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai&allowMultiQueries=true
+  #        username: root
+  #        password: tftnet
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    lettuce:
+      pool:
+        # 最大连接数 默认8
+        max-active: 8
+        # 最大空闲连接数 默认8
+        max-idle: 8
+        # 最小空闲连接数 默认0
+        min-idle: 0
+    database: 2
+server:
+  port: 8881
+  tomcat:
+    uri-encoding: UTF-8
+  servlet:
+    context-path: /emergency_management
+
+# MyBatis config
+mybatis-plus:
+  mapper-locations: classpath:mapper/**/*.xml,mapper/*.xml,/mapper/*.xml
+  global-config:
+    db-config:
+      logic-delete-field: isDel
+      logic-delete-value: 1 # 逻辑已删除值
+      logic-not-delete-value: 0 # 逻辑未删除值
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+# Swagger开关配置   可在生产环境关闭Swagger
+swagger2:
+  enable: true
+
+#最大连接数
+http.maxTotal: 100
+#并发数
+http.defaultMaxPerRoute: 20
+#创建连接的最长时间
+http.connectTimeout: 3000
+#从连接池中获取到连接的最长时间
+http.connectionRequestTimeout: 500
+#数据传输的最长时间
+http.socketTimeout: 100000
+#提交请求前测试连接是否可用
+http.staleConnectionCheckEnabled: true
+
+file:
+  path:   E:/emergency/files/emergencyManagement/
+  templateContact: E:/emergency/files/emergencyManagement/template/template_contact.xlsx
+  templateDuty: E:/emergency/files/emergencyManagement/template/template_duty.xlsx
+nginx:
+  file:
+    server: http://192.168.24.74:8081/emergencyManagement/
+#token过期时间
+atToken:
+  expireSeconds: 3600
+
+check:
+  #接口权限校验开关
+  permission: false
+
+#白名单过滤
+whiteListFilter:
+  url: /api/login/login,/api/loginapp/loginMobile,/api/loginapp/forgetPassword,/api/loginapp/register, /api/loginapp/listDepartment, /api/loginapp/sendSmsVerifyCode, /api/loginapp/verifyPhone, /sysphone/callBack
+  baseUrl: /swagger-ui.html,/swagger-resources/**,/webjars/**,/v2/**,/doc.html,/favicon.ico
+
+#短信-阿里
+sms.ali.server.url: dysmsapi.aliyuncs.com
+sms.ali.accessKeyId: LTAI5t77e2myFd5UCrJ5j1nk
+sms.ali.accessSecret: XCD5bXCZB6AaEjAqrFrewj4xCcSorU
+sms.ali.version: 2017-05-25
+sms.ali.region.id: cn-hangzhou
+sms.ali.smsVerifySignCode: 北极星工业互联网
+sms.ali.smsVerifyTemplateCode: SMS_214365003
+#短信发送接口路径：
+sendMsg:
+  allowSendMsg: false
+  url: http://cf.51welink.com/submitdata/Service.asmx/g_Submit
+  sname: dltfsc
+  spwd: tf123456
+  scorpid:
+  sprdid: 1012808
+  smsSign: 【蓟州应急管理】
+  #每条短信最大字数
+  divideCount: 480
+
+#电话-朗深
+phoneCall:
+  allowPhoneCall: false
+  phoneCallUrl: http://192.168.24.128:8181/IPServer
+  epwd: d41d8cd98f00b204e9800998ecf8427e
+  apwd: e10adc3949ba59abbe56e057f20f883e
+  aid: 1001
+  adn: 1001
+  fileCallUrl: https://192.168.24.128:8443
